@@ -7,18 +7,19 @@ import Categories from "./pages/Categories";
 import Budgets from "./pages/Budgets";
 import Layout from "./components/Layout";
 
-const authToken = localStorage.getItem("finance_token");
-
 const PrivateRoute = ({ element }: { element: JSX.Element }) => {
+  const authToken = localStorage.getItem("finance_token");
   return authToken ? element : <Navigate to="/login" replace />;
 };
 
 function App() {
+  const authToken = localStorage.getItem("finance_token");
+
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<PrivateRoute element={<Layout /> } />}>
+      <Route path="/login" element={authToken ? <Navigate to="/" replace /> : <Login />} />
+      <Route path="/register" element={authToken ? <Navigate to="/" replace /> : <Register />} />
+      <Route path="/" element={<PrivateRoute element={<Layout />} />}>
         <Route index element={<Dashboard />} />
         <Route path="transactions" element={<Transactions />} />
         <Route path="categories" element={<Categories />} />
