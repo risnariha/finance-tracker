@@ -1,4 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const navigation = [
   { name: "Dashboard", to: "/" },
@@ -21,10 +22,10 @@ const Layout = () => {
       <div className="mx-auto flex min-h-screen max-w-[1400px] gap-6 p-6 lg:p-10">
         <aside className="w-full max-w-[280px] rounded-3xl border border-slate-700 bg-slate-900/90 p-6 shadow-soft backdrop-blur-lg lg:block">
           <div className="mb-10 flex items-center gap-3 rounded-3xl bg-slate-800 p-4 shadow-lg shadow-slate-900/40">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/15 text-2xl leading-12 text-sky-300">F</div>
+            <img src={logo} alt="Finance Tracker Logo" className="h-12 w-12 rounded-2xl object-cover" />
             <div>
               <p className="text-sm text-slate-400">Finance Tracker</p>
-              <p className="font-semibold text-white">Smart money dashboard</p>
+              <p className="font-semibold text-white">Smart Finance</p>
             </div>
           </div>
 
@@ -52,7 +53,7 @@ const Layout = () => {
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-sky-400/80">Welcome back</p>
-              <h1 className="mt-3 text-3xl font-semibold text-white">Financial insights and controls</h1>
+              <h1 className="mt-3 text-3xl font-semibold text-white">Financial Controls</h1>
             </div>
           </div>
 
