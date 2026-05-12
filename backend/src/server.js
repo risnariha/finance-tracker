@@ -12,7 +12,10 @@ const dashboardRoutes = require("./routes/dashboard.routes");
 
 const app = express();
 
-////////
+
+// ======================
+// MIDDLEWARE
+// ======================
 
 app.use(cors());
 
@@ -21,7 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-////////
+// ======================
+// API ROUTES
+// ======================
 
 app.use("/api/auth", authRoutes);
 
@@ -33,7 +38,10 @@ app.use("/api/budgets", budgetRoutes);
 
 app.use("/api/dashboard", dashboardRoutes);
 
-///////
+
+// ======================
+// HEALTH CHECK
+// ======================
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -43,7 +51,9 @@ app.get("/", (req, res) => {
 });
 
 
-////////
+// ======================
+// DATABASE CONNECTION
+// ======================
 
 mongoose
   .connect(process.env.MONGO_URI)
