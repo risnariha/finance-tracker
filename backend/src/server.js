@@ -1,8 +1,9 @@
 require("dotenv").config();
 
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+
+const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/auth.routes");
 const transactionRoutes = require("./routes/transaction.routes");
@@ -10,62 +11,29 @@ const categoryRoutes = require("./routes/category.routes");
 const budgetRoutes = require("./routes/budget.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 
+const errorHandler = require("./middleware/error.middleware");
+
 const app = express();
 
-
-// ======================
-// MIDDLEWARE
-// ======================
+connectDB();
 
 app.use(cors());
-
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
-
-
-// ======================
-// API ROUTES
-// ======================
-
-app.use("/api/auth", authRoutes);
-
-app.use("/api/transactions", transactionRoutes);
-
-app.use("/api/categories", categoryRoutes);
-
-app.use("/api/budgets", budgetRoutes);
-
-app.use("/api/dashboard", dashboardRoutes);
-
-
-// ======================
-// HEALTH CHECK
-// ======================
-
 app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Finance Tracker API Running Successfully",
-  });
+  res.send("Finance Tracker API Running");
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/budgets", budgetRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
-// ======================
-// DATABASE CONNECTION
-// ======================
+app.use(errorHandler);
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected Successfully");
+const PORT = process.env.PORT || 5000;
 
-    const PORT = process.env.PORT || 5000;
-
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Database Connection Error:", error);
-  });
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
