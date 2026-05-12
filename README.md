@@ -1,3 +1,6 @@
+
+# finance-tracker
+>>>>>>> cfd3c5e649b1c7100665413bf6ddc7559e030d9d
 # Finance Tracker
 
 A full-stack personal finance and budget tracking application with:
